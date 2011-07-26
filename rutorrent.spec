@@ -1,6 +1,6 @@
 Name:           rutorrent
 Version:        3.2
-Release:        1%{?dist}.R
+Release:        2%{?dist}.R
 Summary:        Yet another web front-end for rTorrent
 
 License:        GPLv3
