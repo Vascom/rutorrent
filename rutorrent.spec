@@ -17,7 +17,7 @@ BuildArch:      noarch
 ruTorrent is a front-end for the popular Bittorrent client rTorrent
 
 %prep
-%setup -q -n rutorrent
+%setup -q -n %{name}
 tar -xf %{SOURCE1}
 
 %build
@@ -25,13 +25,13 @@ tar -xf %{SOURCE1}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-mkdir -p  $RPM_BUILD_ROOT%{_localstatedir}/www/lighttpd/rutorrent/
+mkdir -p  $RPM_BUILD_ROOT%{_localstatedir}/www/lighttpd/%{name}/
 cp -r %{_builddir}/%{name}/* \
-      $RPM_BUILD_ROOT%{_localstatedir}/www/lighttpd/rutorrent/
+      $RPM_BUILD_ROOT%{_localstatedir}/www/lighttpd/%{name}/
 
 %files
 %defattr(-,lighttpd,lighttpd,-)
-%{_localstatedir}/www/lighttpd/rutorrent/*
+%{_localstatedir}/www/lighttpd/%{name}/*
 %doc
 
 
