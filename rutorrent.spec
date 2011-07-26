@@ -10,11 +10,15 @@ Source1:        http://rutorrent.googlecode.com/files/plugins-%{version}.tar.gz
   
 Requires:       lighttpd-fastcgi
 Requires:       rtorrent
+Requires:       php-cli
 
 BuildArch:      noarch
 
 %description
 ruTorrent is a front-end for the popular Bittorrent client rTorrent
+
+%description    plugins
+Plugins for rutorrent
 
 %prep
 %setup -q -n %{name}
@@ -31,9 +35,19 @@ cp -r %{_builddir}/%{name}/* \
 
 %files
 %defattr(-,lighttpd,lighttpd,-)
-%{_localstatedir}/www/lighttpd/%{name}/*
-%doc
+%{_localstatedir}/www/lighttpd/rutorrent/conf/*
+%{_localstatedir}/www/lighttpd/rutorrent/css/*
+%{_localstatedir}/www/lighttpd/rutorrent/images/*
+%{_localstatedir}/www/lighttpd/rutorrent/js/*
+%{_localstatedir}/www/lighttpd/rutorrent/lang/*
+%{_localstatedir}/www/lighttpd/rutorrent/php/*
+%{_localstatedir}/www/lighttpd/rutorrent/share/*
+%{_localstatedir}/www/lighttpd/rutorrent/index.html
+%{_localstatedir}/www/lighttpd/rutorrent/favicon.ico
 
+%files plugins
+%defattr(-,lighttpd,lighttpd,-)
+%{_localstatedir}/www/lighttpd/rutorrent/plugins/*
 
 
 %changelog
