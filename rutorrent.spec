@@ -10,6 +10,7 @@ Source1:        http://rutorrent.googlecode.com/files/plugins-%{version}.tar.gz
   
 Requires:       lighttpd-fastcgi
 Requires:       rtorrent
+Requires:       php-cli
 
 BuildArch:      noarch
 
