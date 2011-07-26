@@ -15,13 +15,14 @@ Requires:       php-cli
 BuildArch:      noarch
 
 %description
-ruTorrent is a front-end for the popular Bittorrent client rTorrent
+ruTorrent is a web front-end for the popular Bittorrent client rTorrent
 
 %package        plugins
 Summary:        Plugins for rutorrent
+Requires:       %{name}
 
 %description    plugins
-Plugins for rutorrent
+All plugins for rutorrent
 
 %prep
 %setup -q -n %{name}
@@ -38,21 +39,21 @@ cp -r %{_builddir}/%{name}/* \
 
 %files
 %defattr(-,lighttpd,lighttpd,-)
-%{_localstatedir}/www/lighttpd/rutorrent/conf/*
-%{_localstatedir}/www/lighttpd/rutorrent/css/*
-%{_localstatedir}/www/lighttpd/rutorrent/images/*
-%{_localstatedir}/www/lighttpd/rutorrent/js/*
-%{_localstatedir}/www/lighttpd/rutorrent/lang/*
-%{_localstatedir}/www/lighttpd/rutorrent/php/*
-%{_localstatedir}/www/lighttpd/rutorrent/share/*
-%{_localstatedir}/www/lighttpd/rutorrent/index.html
-%{_localstatedir}/www/lighttpd/rutorrent/favicon.ico
-%{_localstatedir}/www/lighttpd/rutorrent/conf/.htaccess
-%{_localstatedir}/www/lighttpd/rutorrent/share/.htaccess
+%{_localstatedir}/www/lighttpd/%{name}/conf/*
+%{_localstatedir}/www/lighttpd/%{name}/css/*
+%{_localstatedir}/www/lighttpd/%{name}/images/*
+%{_localstatedir}/www/lighttpd/%{name}/js/*
+%{_localstatedir}/www/lighttpd/%{name}/lang/*
+%{_localstatedir}/www/lighttpd/%{name}/php/*
+%{_localstatedir}/www/lighttpd/%{name}/share/*
+%{_localstatedir}/www/lighttpd/%{name}/index.html
+%{_localstatedir}/www/lighttpd/%{name}/favicon.ico
+%{_localstatedir}/www/lighttpd/%{name}/conf/.htaccess
+%{_localstatedir}/www/lighttpd/%{name}/share/.htaccess
 
 %files plugins
 %defattr(-,lighttpd,lighttpd,-)
-%{_localstatedir}/www/lighttpd/rutorrent/plugins/*
+%{_localstatedir}/www/lighttpd/%{name}/plugins/*
 
 
 %changelog
