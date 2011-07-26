@@ -17,6 +17,9 @@ BuildArch:      noarch
 %description
 ruTorrent is a front-end for the popular Bittorrent client rTorrent
 
+%package        plugins
+Summary:        Plugins for rutorrent
+
 %description    plugins
 Plugins for rutorrent
 
@@ -44,6 +47,8 @@ cp -r %{_builddir}/%{name}/* \
 %{_localstatedir}/www/lighttpd/rutorrent/share/*
 %{_localstatedir}/www/lighttpd/rutorrent/index.html
 %{_localstatedir}/www/lighttpd/rutorrent/favicon.ico
+%{_localstatedir}/www/lighttpd/rutorrent/conf/.htaccess
+%{_localstatedir}/www/lighttpd/rutorrent/share/.htaccess
 
 %files plugins
 %defattr(-,lighttpd,lighttpd,-)
@@ -51,5 +56,9 @@ cp -r %{_builddir}/%{name}/* \
 
 
 %changelog
+* Tue Jul  26 2011 Vasiliy N. Glazov <vascom2@gmail.com> 3.2-2.R
+- Split plugins
+- Clean spec
+
 * Mon Jul  25 2011 Vasiliy N. Glazov <vascom2@gmail.com> 3.2-1.R
 - initial build
