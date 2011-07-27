@@ -1,0 +1,73 @@
+#!/bin/bash
+
+if [ -z "$1" ]
+then
+    echo "rutorrent-set-config: Format isn't correct!"
+    echo "rutorrent-set-config: Use rutorrent-set-config user_name"
+else
+    if [ -e "/home/$1" ]
+    then
+        if [ -e "/home/$1/.rtorrent.rc" ]
+        then
+            SCGI_RT=`grep scgi_port /home/$1/.rtorrent.rc`
+            if [ "$SCGI_RT" != "scgi_port = 127.0.0.1:5000" ]
+            then
+                echo "rutorrent-set-config: Writing config in .rtorrent.rc"
+                echo "scgi_port = 127.0.0.1:5000" > /home/$1/.rtorrent.rc
+                echo "encoding_list=UTF-8" >> /home/$1/.rtorrent.rc
+            else
+                echo "rutorrent-set-config: Config in .rtorrent.rc already exist"
+            fi
+        else
+            echo "rutorrent-set-config: Writing .rtorrent.rc"
+            echo "scgi_port = 127.0.0.1:5000" > /home/$1/.rtorrent.rc
+            echo "encoding_list=UTF-8" >> /home/$1/.rtorrent.rc
+        fi
+    else
+        echo "rutorrent-set-config: User homedir not exist"
+    fi
+
+    if [ -e "/etc/lighttpd/modules.conf" ]
+    then
+        sed -e '/"scgi.conf"/s/\#//g' /etc/lighttpd/modules.conf > /tmp/modules.conf0.tmp
+        sed -e '/"fastcgi.conf"/s/\#//g' /tmp/modules.conf0.tmp > /tmp/modules.conf1.tmp
+        sed -e '/server.use-ipv6/s/^/#/g' /etc/lighttpd/lighttpd.conf > /tmp/lighttpd.conf0.tmp
+        SCGI_L0=`grep 5000 /etc/lighttpd/conf.d/scgi.conf`
+        if [ "$SCGI_L0" != "                                \"port\" => 5000," ]
+        then
+        echo "rutorrent-set-config: Enter root password for lighttpd configure"
+        su -c 'echo "scgi.server = (
+        \"/RPC2\" =>
+                ( \"127.0.0.1\" =>
+                        (
+                                \"host\" => \"127.0.0.1\",
+                                \"port\" => 5000,
+                                \"check-local\" => \"disable\"
+                        )
+                )
+        )" >>  /etc/lighttpd/conf.d/scgi.conf
+               echo "fastcgi.server             = ( \".php\" =>
+                               ( \"localhost\" =>
+                                 (
+                                   \"socket\" => \"/var/run/lighttpd/php-fastcgi.socket\",
+                                   \"bin-path\" => \"/usr/bin/php-cgi\"
+                                 )
+                               )
+                            )" >> /etc/lighttpd/conf.d/fastcgi.conf
+               mv /tmp/modules.conf1.tmp /etc/lighttpd/modules.conf
+               mv /tmp/lighttpd.conf0.tmp /etc/lighttpd/lighttpd.conf
+               service lighttpd restart
+               chkconfig --level 5 lighttpd on'
+        else
+            echo "rutorrent-set-config: Lighttpd already have config"
+            echo "rutorrent-set-config: Please start server manually"
+        fi
+        rm -f /tmp/modules.conf*
+        rm -f /tmp/lighttpd.conf0.tmp
+    else
+        echo "rutorrent-set-config: ERROR Lighttpd has not config"   
+    fi
+
+        
+
+fi
