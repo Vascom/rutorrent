@@ -1,6 +1,6 @@
 Name:           rutorrent
 Version:        3.2
-Release:        3%{?dist}.R
+Release:        4%{?dist}.R
 Summary:        Yet another web front-end for rTorrent
 
 License:        GPLv3
@@ -8,19 +8,32 @@ URL:            http://code.google.com/p/rutorrent/
 Source0:        http://rutorrent.googlecode.com/files/%{name}-%{version}.tar.gz
 Source1:        http://rutorrent.googlecode.com/files/plugins-%{version}.tar.gz
 Source2:        rutorrent-set-config
-  
-Requires:       lighttpd-fastcgi
-Requires:       rtorrent
-Requires:       php-cli
 
 BuildArch:      noarch
 
 %description
 ruTorrent is a web front-end for the popular Bittorrent client rTorrent
 
+%package        lighttpd
+Summary:        Lighttpd config for rutorrent
+Requires:       lighttpd-fastcgi
+Requires:       %{name}-common
+
+%description    lighttpd
+Lighttpd config for rutorrent
+
+%package        common
+Summary:        Main rutorrent files
+Requires:       rtorrent
+Requires:       php-cli
+
+%description    common
+Main rutorrent files
+
 %package        plugins
 Summary:        Plugins for rutorrent
-Requires:       %{name}
+Requires:       %{name}-common
+
 
 %description    plugins
 All plugins for rutorrent
@@ -34,32 +47,33 @@ tar -xf %{SOURCE1}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-mkdir -p  $RPM_BUILD_ROOT%{_localstatedir}/www/lighttpd/%{name}/
+mkdir -p  $RPM_BUILD_ROOT%{_localstatedir}/%{name}/
 cp -r %{_builddir}/%{name}/* \
-      $RPM_BUILD_ROOT%{_localstatedir}/www/lighttpd/%{name}/
+      $RPM_BUILD_ROOT%{_localstatedir}/%{name}/
 %{__install} -pD -m755 %{SOURCE2} $RPM_BUILD_ROOT%{_bindir}/rutorrent-set-config
 
-%files
+%clean
+rm -rf $RPM_BUILD_ROOT
+
+%files lighttpd
 %defattr(-,lighttpd,lighttpd,-)
-%{_localstatedir}/www/lighttpd/%{name}/conf/*
-%{_localstatedir}/www/lighttpd/%{name}/css/*
-%{_localstatedir}/www/lighttpd/%{name}/images/*
-%{_localstatedir}/www/lighttpd/%{name}/js/*
-%{_localstatedir}/www/lighttpd/%{name}/lang/*
-%{_localstatedir}/www/lighttpd/%{name}/php/*
-%{_localstatedir}/www/lighttpd/%{name}/share/*
-%{_localstatedir}/www/lighttpd/%{name}/index.html
-%{_localstatedir}/www/lighttpd/%{name}/favicon.ico
-%{_localstatedir}/www/lighttpd/%{name}/conf/.htaccess
-%{_localstatedir}/www/lighttpd/%{name}/share/.htaccess
 %{_bindir}/rutorrent-set-config
+
+%files common
+%defattr(-,lighttpd,lighttpd,-)
+%{_localstatedir}/%{name}
+%exclude %{_localstatedir}/%{name}/plugins/
 
 %files plugins
 %defattr(-,lighttpd,lighttpd,-)
-%{_localstatedir}/www/lighttpd/%{name}/plugins/*
+%{_localstatedir}/%{name}/plugins/
 
 
 %changelog
+* Thu Jul  28 2011 Vasiliy N. Glazov <vascom2@gmail.com> 3.2-4.R
+- Split script to another package
+- Set packages requires
+
 * Wed Jul  27 2011 Vasiliy N. Glazov <vascom2@gmail.com> 3.2-3.R
 - Added config script
 
