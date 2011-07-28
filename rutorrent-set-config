@@ -56,6 +56,7 @@ else
                             )" >> /etc/lighttpd/conf.d/fastcgi.conf
                mv /tmp/modules.conf1.tmp /etc/lighttpd/modules.conf
                mv /tmp/lighttpd.conf0.tmp /etc/lighttpd/lighttpd.conf
+               ln -s /var/rutorrent /var/www/lighttpd/rutorrent
                service lighttpd restart
                chkconfig --level 5 lighttpd on'
         else
