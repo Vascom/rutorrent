@@ -1,0 +1,8 @@
+rutorrent-set-config - write config directives to
+    ~/.rtorrent.rc
+    /etc/lighttpd/modules.conf
+    /etc/lighttpd/conf.d/scgi.conf
+    /etc/lighttpd/conf.d/fastcgi.conf
+and stert lighttpd server.
+
+Dont forget disable SElinux and reboot.
