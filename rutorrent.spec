@@ -1,6 +1,6 @@
 Name:           rutorrent
-Version:        3.2
-Release:        4%{?dist}.R
+Version:        3.3
+Release:        1%{?dist}.R
 Summary:        Yet another web front-end for rTorrent
 
 License:        GPLv3
@@ -70,6 +70,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Aug 01 2011 Vasiliy N. Glazov <vascom2@gmail.com> 3.3-1.R
+- Updated to 3.3
+
 * Thu Jul  28 2011 Vasiliy N. Glazov <vascom2@gmail.com> 3.2-4.R
 - Split script to another package
 - Set packages requires
