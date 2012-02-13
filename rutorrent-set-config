@@ -57,8 +57,9 @@ else
                mv /tmp/modules.conf1.tmp /etc/lighttpd/modules.conf
                mv /tmp/lighttpd.conf0.tmp /etc/lighttpd/lighttpd.conf
                ln -s /var/rutorrent /var/www/lighttpd/rutorrent
-               service lighttpd restart
-               chkconfig --level 5 lighttpd on'
+
+               systemctl restart lighttpd.service
+               systemctl enable lighttpd.service'
         else
             echo "rutorrent-set-config: Lighttpd already have config"
             echo "rutorrent-set-config: Please start server manually"
@@ -68,7 +69,4 @@ else
     else
         echo "rutorrent-set-config: ERROR Lighttpd has not config"   
     fi
-
-        
-
 fi
