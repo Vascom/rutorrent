@@ -1,7 +1,8 @@
 Name:           rutorrent
-Version:        3.3
-Release:        1%{?dist}.R
+Version:        3.4
+Release:        1%{?dist}
 Summary:        Yet another web front-end for rTorrent
+Summary(ru):    Веб-интерфейс для rTorrent
 
 License:        GPLv3
 URL:            http://code.google.com/p/rutorrent/
@@ -46,14 +47,11 @@ tar -xf %{SOURCE1}
 
 
 %install
-rm -rf $RPM_BUILD_ROOT
 mkdir -p  $RPM_BUILD_ROOT%{_localstatedir}/%{name}/
 cp -r %{_builddir}/%{name}/* \
       $RPM_BUILD_ROOT%{_localstatedir}/%{name}/
 %{__install} -pD -m755 %{SOURCE2} $RPM_BUILD_ROOT%{_bindir}/rutorrent-set-config
 
-%clean
-rm -rf $RPM_BUILD_ROOT
 
 %files lighttpd
 %defattr(-,lighttpd,lighttpd,-)
@@ -70,6 +68,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Oct 04 2012 Vasiliy N. Glazov <vascom2@gmail.com> 3.4-1.R
+- Updated to 3.4
+
 * Mon Aug 01 2011 Vasiliy N. Glazov <vascom2@gmail.com> 3.3-1.R
 - Updated to 3.3
 
