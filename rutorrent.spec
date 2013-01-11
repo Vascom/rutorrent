@@ -1,5 +1,5 @@
 Name:           rutorrent
-Version:        3.4
+Version:        3.5
 Release:        1%{?dist}
 Summary:        Yet another web front-end for rTorrent
 Summary(ru):    Веб-интерфейс для rTorrent
@@ -68,6 +68,9 @@ cp -r %{_builddir}/%{name}/* \
 
 
 %changelog
+* Fri Jan 11 2012 Vasiliy N. Glazov <vascom2@gmail.com> 3.5-1.R
+- Updated to 3.5
+
 * Thu Oct 04 2012 Vasiliy N. Glazov <vascom2@gmail.com> 3.4-1.R
 - Updated to 3.4
 
