@@ -68,7 +68,7 @@ cp -r %{_builddir}/%{name}/* \
 
 
 %changelog
-* Fri Jan 11 2012 Vasiliy N. Glazov <vascom2@gmail.com> 3.5-1.R
+* Fri Jan 11 2013 Vasiliy N. Glazov <vascom2@gmail.com> 3.5-1.R
 - Updated to 3.5
 
 * Thu Oct 04 2012 Vasiliy N. Glazov <vascom2@gmail.com> 3.4-1.R
